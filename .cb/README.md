@@ -1,6 +1,8 @@
 Robot Framework / Xray integration POC
 ============================================
 
+See: [Testing using Robot Framework integration in Python or Java - Xray](https://docs.getxray.app/display/XRAYCLOUD/Testing+using+Robot+Framework+integration+in+Python+or+Java)
+
 Mac Setup
 -------------------
 
