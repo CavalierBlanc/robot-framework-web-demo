@@ -1,0 +1,43 @@
+# Docker Compose file reference
+# @see https://docs.docker.com/compose/compose-file/
+services:
+  # Demo App
+  # @see https://hub.docker.com/_/nginx
+  # @url http://localhost
+  public:
+    image: nginx:${NGINX_VERSION}
+    ports:
+      - ${NGINX_PUBLIC_PORT_80}:80
+      - ${NGINX_PUBLIC_PORT_443}:443
+    volumes:
+      - ${PWD}/src/public:/usr/share/nginx/html
+      - nginx_logs_public:/var/log
+
+  # Buggy App
+  # @see https://hub.docker.com/_/nginx
+  # @url http://localhost:7272
+  buggy:
+    image: nginx:${NGINX_VERSION}
+    ports:
+      - ${NGINX_BUGGY_PORT_80}:80
+      - ${NGINX_BUGGY_PORT_443}:443
+    volumes:
+      - ${PWD}/src/buggy:/usr/share/nginx/html
+      - nginx_logs_buggy:/var/log
+
+  # Robot Framework Reports
+  # @see https://hub.docker.com/_/nginx
+  # @url http://localhost:8080/report.html
+  protected:
+    image: nginx:${NGINX_VERSION}
+    ports:
+      - ${NGINX_PROTECTED_PORT_80}:80
+      - ${NGINX_PROTECTED_PORT_443}:443
+    volumes:
+      - ${PWD}/src/protected:/usr/share/nginx/html
+      - nginx_logs_protected:/var/log
+
+volumes:
+  nginx_logs_public:
+  nginx_logs_buggy:
+  nginx_logs_protected:
