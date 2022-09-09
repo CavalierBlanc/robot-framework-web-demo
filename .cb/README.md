@@ -3,52 +3,56 @@ Robot Framework / Xray integration POC
 
 See: [Testing using Robot Framework integration in Python or Java - Xray](https://docs.getxray.app/display/XRAYCLOUD/Testing+using+Robot+Framework+integration+in+Python+or+Java)
 
-Robot Framework
---------------------
+Requirements (Mac)
+-----------------------
 
-### Mac Requirements
+- Homebrew
+- Docker
 
 ```sh
 brew install python
 brew install --cask chromedriver
+```
+
+Robot Framework
+--------------------
+
+### Docker Compose Quick Start
+
+```sh
+pip3 install -r requirements.txt
 
 cd ./.cb
 cp ./build/docker/.env.dev .env
-```
 
-### Setup
+docker compose up -d
 
-```
-pip3 install -r requirements.txt
+# Demo App
+open http://localhost
 
-python3 demoapp/server.py
-
+# Run tests on Demo App
 robot \
-  --variable SERVER:127.0.0.1:7272 \
-  --variable BROWSER:Chrome \
-  login_tests
+  -d ./src/protected \
+  ./tests/login
 
-```
+# Buggy App
+open http://localhost:7272
 
-### Snippets
-
-```sh
-# Testing failed executions
-python3 demoapp/buggy_server.py
-
+# Run tests on Buggy App
 robot \
-  --variable SERVER:127.0.0.1:7272 \
-  --variable BROWSER:Chrome \
+  -d ./src/protected \
+  --variable SERVER:localhost:7272 \
   --loglevel DEBUG \
-  login_tests
+  ./tests/login
 
-robot \
-  --variable SERVER:127.0.0.1:7272 \
-  --variable BROWSER:Chrome \
-  --test InvalidUserName \
-  --loglevel DEBUG \
-  login_tests
+# Robot Framework Report
+open http://localhost:8080/report.html
 
+# Shutdown
+docker compose down
+
+# (alt) Shutdown and remove volumes
+docker compose down -v
 ```
 
 Xray
@@ -76,14 +80,7 @@ curl -X POST \
   # testEnvironments=
   # revision=
   # fixVersion=
-
-
 ```
-
-
-
-
-
 
 
 
