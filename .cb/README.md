@@ -82,5 +82,13 @@ curl -X POST \
   # fixVersion=
 ```
 
+Next Steps
+--------------
+
+- Concourse CI
+- newman
+  - `npm install newman-reporter-html`
+
+
 
 
